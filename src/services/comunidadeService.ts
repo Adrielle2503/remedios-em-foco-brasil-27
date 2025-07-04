@@ -32,6 +32,7 @@ export interface FiltrosBusca {
   tipoUnidade?: string;
   bairro?: string;
   tags?: string[];
+  tagsSelecionadas?: string[];
   termo?: string;
 }
 
