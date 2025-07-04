@@ -71,6 +71,17 @@ const ResultadosBusca: React.FC<ResultadosBuscaProps> = ({
     }
   };
 
+  const getCityName = (cidade: string) => {
+    switch (cidade) {
+      case 'recife':
+        return 'Recife - PE';
+      case 'sao_paulo':
+        return 'São Paulo - SP';
+      default:
+        return cidade;
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">
@@ -88,6 +99,9 @@ const ResultadosBusca: React.FC<ResultadosBuscaProps> = ({
                 <p className="text-sm text-gray-600 mt-1">
                   {medicamento.principioAtivo} - {medicamento.forma} {medicamento.concentracao}
                 </p>
+                <Badge variant="secondary" className="mt-2">
+                  {getCityName(medicamento.cidade)}
+                </Badge>
               </div>
               <Badge variant="outline" className="ml-4">
                 {medicamento.unidades.length} unidade{medicamento.unidades.length > 1 ? 's' : ''}

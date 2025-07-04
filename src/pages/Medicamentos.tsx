@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Pill, MapPin, Clock, Building2, AlertCircle } from 'lucide-react';
 import { useScrollAnimationGlobal } from '@/hooks/useScrollAnimation';
 import { buscarMedicamentos, Medicamento } from '@/services/medicamentosService';
@@ -12,12 +13,13 @@ import ResultadosBusca from '@/components/medicamentos/ResultadosBusca';
 const Medicamentos = () => {
   useScrollAnimationGlobal();
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCity, setSelectedCity] = useState<'recife' | 'sao_paulo' | ''>('');
   const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = async () => {
-    console.log('Iniciando busca para:', searchTerm);
+    console.log('Iniciando busca para:', searchTerm, 'na cidade:', selectedCity);
     
     if (!searchTerm.trim()) {
       console.log('Termo de busca vazio');
@@ -29,7 +31,7 @@ const Medicamentos = () => {
     
     try {
       console.log('Chamando buscarMedicamentos...');
-      const resultados = await buscarMedicamentos(searchTerm);
+      const resultados = await buscarMedicamentos(searchTerm, selectedCity || undefined);
       console.log('Resultados encontrados:', resultados);
       setMedicamentos(resultados);
     } catch (error) {
@@ -46,7 +48,18 @@ const Medicamentos = () => {
     }
   };
 
-  console.log('Estado atual:', { searchTerm, medicamentos, isLoading, hasSearched });
+  const getCityName = (city: string) => {
+    switch (city) {
+      case 'recife':
+        return 'Recife';
+      case 'sao_paulo':
+        return 'São Paulo';
+      default:
+        return 'Todas as cidades';
+    }
+  };
+
+  console.log('Estado atual:', { searchTerm, selectedCity, medicamentos, isLoading, hasSearched });
 
   return (
     <Layout>
@@ -68,7 +81,7 @@ const Medicamentos = () => {
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
               Consulte a disponibilidade em tempo real nas unidades de saúde 
-              de Recife baseado nos dados de transparência oficial
+              de Recife e São Paulo baseado nos dados de transparência oficial
             </p>
           </div>
         </div>
@@ -85,8 +98,8 @@ const Medicamentos = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-1 relative">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2 relative">
                   <Input 
                     placeholder="Digite o nome do medicamento (ex: Paracetamol)..." 
                     className="text-lg py-6 pl-12 border-2 border-primary/20 focus:border-primary transition-colors"
@@ -96,16 +109,28 @@ const Medicamentos = () => {
                   />
                   <Pill className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-primary/60" />
                 </div>
-                <Button 
-                  size="lg" 
-                  className="px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                  onClick={handleSearch}
-                  disabled={isLoading}
-                >
-                  <Search className="h-5 w-5 mr-2" />
-                  {isLoading ? 'Buscando...' : 'Buscar'}
-                </Button>
+                
+                <Select value={selectedCity} onValueChange={(value) => setSelectedCity(value as 'recife' | 'sao_paulo' | '')}>
+                  <SelectTrigger className="py-6 text-lg border-2 border-primary/20 focus:border-primary">
+                    <SelectValue placeholder="Selecione a cidade" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Todas as cidades</SelectItem>
+                    <SelectItem value="recife">Recife - PE</SelectItem>
+                    <SelectItem value="sao_paulo">São Paulo - SP</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+              
+              <Button 
+                size="lg" 
+                className="w-full py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={handleSearch}
+                disabled={isLoading}
+              >
+                <Search className="h-5 w-5 mr-2" />
+                {isLoading ? 'Buscando...' : 'Buscar'}
+              </Button>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
@@ -118,7 +143,7 @@ const Medicamentos = () => {
                 </div>
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
                   <MapPin className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-sm font-medium text-secondary">Recife</div>
+                  <div className="text-sm font-medium text-secondary">{getCityName(selectedCity)}</div>
                 </div>
               </div>
             </CardContent>
@@ -149,13 +174,13 @@ const Medicamentos = () => {
                   <AlertCircle className="h-12 w-12 text-primary" />
                 </div>
                 <CardTitle className="text-2xl text-secondary">
-                  Dados de Transparência do Recife
+                  Dados de Transparência Oficial
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-center space-y-6">
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Os dados são baseados no portal de transparência oficial da 
-                  Prefeitura do Recife para consulta de medicamentos.
+                  Os dados são baseados nos portais de transparência oficial das 
+                  Prefeituras de Recife e São Paulo para consulta de medicamentos.
                 </p>
                 
                 <div className="bg-gradient-to-r from-blue-50 to-slate-50 rounded-lg p-6 space-y-4">
