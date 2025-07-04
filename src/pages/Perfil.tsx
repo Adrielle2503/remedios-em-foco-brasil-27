@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import UserProfile from '@/components/auth/UserProfile';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,6 +10,7 @@ import AuthModal from '@/components/auth/AuthModal';
 
 const Perfil = () => {
   const { isAuthenticated } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
     <Layout>
@@ -42,17 +43,24 @@ const Perfil = () => {
                   Para acessar seu perfil e registrar sua UBS de referência, 
                   você precisa fazer login ou criar uma conta.
                 </p>
-                <AuthModal>
-                  <Button size="lg" className="w-full">
-                    <LogIn className="h-5 w-5 mr-2" />
-                    Entrar ou Cadastrar
-                  </Button>
-                </AuthModal>
+                <Button 
+                  size="lg" 
+                  className="w-full"
+                  onClick={() => setShowAuthModal(true)}
+                >
+                  <LogIn className="h-5 w-5 mr-2" />
+                  Entrar ou Cadastrar
+                </Button>
               </CardContent>
             </Card>
           </div>
         )}
       </div>
+      
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal} 
+      />
     </Layout>
   );
 };

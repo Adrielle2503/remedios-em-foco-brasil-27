@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,11 +9,11 @@ import { User, LogIn, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface AuthModalProps {
-  children: React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-const AuthModal = ({ children }: AuthModalProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { login, register } = useAuth();
@@ -38,7 +38,7 @@ const AuthModal = ({ children }: AuthModalProps) => {
     try {
       const success = await login(loginData.email, loginData.password);
       if (success) {
-        setIsOpen(false);
+        onOpenChange(false);
         setLoginData({ email: '', password: '' });
       } else {
         setError('Email ou senha incorretos');
@@ -64,7 +64,7 @@ const AuthModal = ({ children }: AuthModalProps) => {
     try {
       const success = await register(registerData.name, registerData.email, registerData.password);
       if (success) {
-        setIsOpen(false);
+        onOpenChange(false);
         setRegisterData({ name: '', email: '', password: '', confirmPassword: '' });
       } else {
         setError('Email já cadastrado');
@@ -77,10 +77,7 @@ const AuthModal = ({ children }: AuthModalProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">

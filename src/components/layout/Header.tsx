@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Heart, Menu, X, User, ExternalLink } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from '@/components/auth/AuthModal';
-import UserProfile from '@/components/auth/UserProfile';
+import UserProfileModal from '@/components/auth/UserProfileModal';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
@@ -158,7 +158,7 @@ const Header = () => {
       />
 
       {/* User Profile Modal */}
-      <UserProfile 
+      <UserProfileModal 
         open={showUserProfile} 
         onOpenChange={setShowUserProfile} 
       />
