@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,18 +8,20 @@ interface ResultadosBuscaProps {
   medicamentos: Medicamento[];
   isLoading: boolean;
   searchTerm: string;
+  selectedCity?: string;
 }
 
 const ResultadosBusca: React.FC<ResultadosBuscaProps> = ({ 
   medicamentos, 
   isLoading, 
-  searchTerm 
+  searchTerm,
+  selectedCity = 'Recife'
 }) => {
   if (isLoading) {
     return (
       <div className="text-center py-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-        <p className="text-gray-600">Buscando medicamentos...</p>
+        <p className="text-gray-600">Buscando medicamentos em {selectedCity}...</p>
       </div>
     );
   }
@@ -39,7 +40,10 @@ const ResultadosBusca: React.FC<ResultadosBuscaProps> = ({
       <div className="text-center py-8">
         <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
         <p className="text-gray-600">
-          Nenhum medicamento encontrado para "{searchTerm}"
+          Nenhum medicamento encontrado para "{searchTerm}" em {selectedCity}
+        </p>
+        <p className="text-sm text-gray-500 mt-2">
+          Tente buscar com outro nome ou em outra cidade
         </p>
       </div>
     );
@@ -75,7 +79,7 @@ const ResultadosBusca: React.FC<ResultadosBuscaProps> = ({
     <div className="space-y-6">
       <div className="text-center mb-6">
         <p className="text-lg text-secondary">
-          {medicamentos.length} medicamento{medicamentos.length > 1 ? 's' : ''} encontrado{medicamentos.length > 1 ? 's' : ''} para "{searchTerm}"
+          {medicamentos.length} medicamento{medicamentos.length > 1 ? 's' : ''} encontrado{medicamentos.length > 1 ? 's' : ''} para "{searchTerm}" em {selectedCity}
         </p>
       </div>
 
