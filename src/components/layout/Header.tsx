@@ -3,122 +3,166 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, User, LogIn } from 'lucide-react';
+import { Heart, Menu, X, User, ExternalLink } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from '@/components/auth/AuthModal';
+import UserProfile from '@/components/auth/UserProfile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { isAuthenticated, user } = useAuth();
+  const { user } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const navigation = [
     { name: 'Início', href: '/' },
     { name: 'Medicamentos', href: '/medicamentos' },
     { name: 'Mapa', href: '/mapa' },
     { name: 'Unidades', href: '/unidades' },
+    { name: 'Links Oficiais', href: '/links-oficiais' },
     { name: 'Comunidade', href: '/comunidade' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contatos', href: '/contatos' },
   ];
 
-  const isActive = (href: string) => {
-    return location.pathname === href;
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
   };
 
-  return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">mS</span>
-          </div>
-          <span className="text-xl font-bold text-secondary">mapSaúde</span>
+  const handleAuthClick = () => {
+    if (user) {
+      setShowUserProfile(true);
+    } else {
+      setShowAuthModal(true);
+    }
+  };
+
+  const NavLinks = ({ mobile = false }) => (
+    <>
+      {navigation.map((item) => (
+        <Link
+          key={item.name}
+          to={item.href}
+          className={`${
+            isActive(item.href)
+              ? 'text-primary font-semibold'
+              : 'text-slate-600 hover:text-primary'
+          } transition-colors duration-200 ${
+            mobile ? 'block py-2 text-base' : 'text-sm'
+          } ${item.name === 'Links Oficiais' ? 'flex items-center gap-1' : ''}`}
+          onClick={() => mobile && setMobileMenuOpen(false)}
+        >
+          {item.name}
+          {item.name === 'Links Oficiais' && <ExternalLink className="h-3 w-3" />}
         </Link>
+      ))}
+    </>
+  );
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-slate-100 ${
-                isActive(item.href)
-                  ? 'text-primary bg-primary/10'
-                  : 'text-slate-700'
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* User Actions */}
-        <div className="hidden md:flex items-center space-x-2">
-          {isAuthenticated ? (
-            <Link to="/perfil">
-              <Button variant="outline" size="sm">
-                <User className="h-4 w-4 mr-2" />
-                {user?.name?.split(' ')[0] || 'Perfil'}
-              </Button>
-            </Link>
-          ) : (
-            <AuthModal>
-              <Button size="sm">
-                <LogIn className="h-4 w-4 mr-2" />
-                Entrar
-              </Button>
-            </AuthModal>
-          )}
-        </div>
-
-        {/* Mobile Menu */}
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="sm">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[280px] sm:w-[400px]">
-            <div className="flex flex-col space-y-4 mt-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'text-primary bg-primary/10'
-                      : 'text-slate-700 hover:bg-slate-100'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              <div className="border-t pt-4">
-                {isAuthenticated ? (
-                  <Link to="/perfil" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full">
-                      <User className="h-4 w-4 mr-2" />
-                      {user?.name?.split(' ')[0] || 'Perfil'}
-                    </Button>
-                  </Link>
-                ) : (
-                  <AuthModal>
-                    <Button className="w-full">
-                      <LogIn className="h-4 w-4 mr-2" />
-                      Entrar
-                    </Button>
-                  </AuthModal>
-                )}
+  return (
+    <>
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/95">
+        <div className="max-w-7xl mx-auto container-padding">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <div className="bg-primary p-2 rounded-lg shadow-md">
+                <Heart className="h-6 w-6 text-white" />
               </div>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </header>
+              <span className="text-xl font-bold text-secondary">mapSaúde</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            {!isMobile && (
+              <nav className="hidden md:flex items-center space-x-8">
+                <NavLinks />
+              </nav>
+            )}
+
+            {/* Desktop Auth Button */}
+            {!isMobile && (
+              <Button
+                onClick={handleAuthClick}
+                variant={user ? "outline" : "default"}
+                size="sm"
+                className="shadow-md hover:shadow-lg transition-all duration-200"
+              >
+                <User className="h-4 w-4 mr-2" />
+                {user ? user.name : 'Entrar'}
+              </Button>
+            )}
+
+            {/* Mobile Menu */}
+            {isMobile && (
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="md:hidden">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                  <div className="flex flex-col h-full">
+                    {/* Mobile Header */}
+                    <div className="flex items-center justify-between pb-6 border-b">
+                      <Link 
+                        to="/" 
+                        className="flex items-center space-x-2"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <div className="bg-primary p-2 rounded-lg">
+                          <Heart className="h-6 w-6 text-white" />
+                        </div>
+                        <span className="text-xl font-bold text-secondary">mapSaúde</span>
+                      </Link>
+                    </div>
+
+                    {/* Mobile Navigation */}
+                    <nav className="flex-1 py-6">
+                      <div className="space-y-1">
+                        <NavLinks mobile />
+                      </div>
+                    </nav>
+
+                    {/* Mobile Auth Button */}
+                    <div className="pt-6 border-t">
+                      <Button
+                        onClick={() => {
+                          handleAuthClick();
+                          setMobileMenuOpen(false);
+                        }}
+                        variant={user ? "outline" : "default"}
+                        className="w-full shadow-md"
+                      >
+                        <User className="h-4 w-4 mr-2" />
+                        {user ? user.name : 'Entrar / Cadastrar'}
+                      </Button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal} 
+      />
+
+      {/* User Profile Modal */}
+      <UserProfile 
+        open={showUserProfile} 
+        onOpenChange={setShowUserProfile} 
+      />
+    </>
   );
 };
 

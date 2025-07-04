@@ -10,6 +10,7 @@ import Comunidade from '@/pages/Comunidade';
 import Blog from '@/pages/Blog';
 import Contatos from '@/pages/Contatos';
 import Perfil from '@/pages/Perfil';
+import LinksOficiais from '@/pages/LinksOficiais';
 import NotFound from '@/pages/NotFound';
 import './App.css';
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/contatos" element={<Contatos />} />
             <Route path="/perfil" element={<Perfil />} />
+            <Route path="/links-oficiais" element={<LinksOficiais />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />
