@@ -1,73 +1,52 @@
-# Welcome to your Lovable project
+# 💊 Remédios em Foco Brasil
 
-## Project info
 
-**URL**: https://lovable.dev/projects/5f318b71-5966-4ed5-b5b9-f6e9fb004418
+**Remédios em Foco Brasil** é uma plataforma criada para facilitar o acesso à informação sobre a disponibilidade de medicamentos do SUS em todo o Brasil. O sistema permite que usuários visualizem **quais medicamentos estão disponíveis em cada unidade de saúde** e **quantos medicamentos cada unidade possui**.
 
-## How can I edit this code?
+Nosso objetivo é centralizar essas informações em um só lugar, de forma simples, rápida e acessível.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🔍 Funcionalidades
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5f318b71-5966-4ed5-b5b9-f6e9fb004418) and start prompting.
+- ✅ Lista de medicamentos disponíveis por unidade de saúde  
+- ✅ Contagem total de medicamentos por unidade  
+- ✅ Interface leve, moderna e responsiva  
+- ✅ Sistema rápido e intuitivo para buscas e filtros  
+- ✅ Totalmente gratuito e voltado à transparência pública
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🧪 Tecnologias utilizadas
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Este projeto foi desenvolvido com as seguintes tecnologias modernas:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- ⚡ [Vite](https://vitejs.dev/) — Bundler rápido e leve para front-end
+- 🔷 [TypeScript](https://www.typescriptlang.org/) — Tipagem estática para maior segurança no código
+- ⚛️ [React](https://reactjs.org/) — Biblioteca JavaScript para criação de interfaces
+- 🎨 [Tailwind CSS](https://tailwindcss.com/) — Framework de CSS utilitário para estilização rápida e eficiente
+- 🧩 [shadcn/ui](https://ui.shadcn.dev/) — Componentes acessíveis e elegantes para interface
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Como rodar o projeto localmente
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Pré-requisitos
 
-# Step 3: Install the necessary dependencies.
-npm i
+- Node.js 18+
+- npm ou yarn
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Passos
+
+```bash
+# Clone o repositório
+git clone <URL_DO_REPO>
+
+# Acesse o diretório
+cd remedios-em-foco-brasil
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/5f318b71-5966-4ed5-b5b9-f6e9fb004418) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
