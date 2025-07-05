@@ -139,17 +139,17 @@ const ComentariosPost = ({ postId, isOpen, onClose, totalComentarios }: Comentar
                 {[...Array(3)].map((_, i) => (
                   <div key={i} className="animate-pulse">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                      <div className="w-8 h-8 bg-slate-200 rounded-full"></div>
                       <div className="flex-1 space-y-2">
-                        <div className="w-24 h-4 bg-gray-200 rounded"></div>
-                        <div className="w-full h-12 bg-gray-200 rounded"></div>
+                        <div className="w-24 h-4 bg-slate-200 rounded"></div>
+                        <div className="w-full h-12 bg-slate-200 rounded"></div>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             ) : comentarios.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-slate-500">
                 <p>Nenhum comentário ainda.</p>
                 <p className="text-sm">Seja o primeiro a comentar!</p>
               </div>
@@ -170,7 +170,7 @@ const ComentariosPost = ({ postId, isOpen, onClose, totalComentarios }: Comentar
                             ✓
                           </Badge>
                         )}
-                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <div className="flex items-center gap-1 text-xs text-slate-500">
                           <Clock className="h-3 w-3" />
                           {formatDistanceToNow(comentario.timestamp, { 
                             addSuffix: true,
@@ -178,7 +178,7 @@ const ComentariosPost = ({ postId, isOpen, onClose, totalComentarios }: Comentar
                           })}
                         </div>
                       </div>
-                      <p className="text-gray-700 text-sm leading-relaxed">
+                      <p className="text-slate-700 text-sm leading-relaxed">
                         {comentario.conteudo}
                       </p>
                     </div>
