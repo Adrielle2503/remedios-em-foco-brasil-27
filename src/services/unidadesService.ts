@@ -2,20 +2,32 @@
 export interface UnidadeSaude {
   id: string;
   nome: string;
-  tipo: 'UBS' | 'UPA' | 'Policlínica' | 'Centro de Saúde';
+  tipo: 'UBS' | 'UPA' | 'Policlínica' | 'Centro de Saúde' | 'Hospital';
   endereco: string;
   bairro: string;
   regiao: string;
   telefone?: string;
   horario: string;
   servicos: string[];
+  especialidades: string[];
+  diasAtendimento: string[];
   coordenadas?: {
     lat: number;
     lng: number;
   };
+  // Dados específicos para hospitais
+  leitos?: {
+    total: number;
+    disponiveis: number;
+    uti: number;
+    utiDisponiveis: number;
+  };
+  tratamentosEspeciais?: string[];
+  temVacinas?: boolean;
+  tipoVacinas?: string[];
 }
 
-// Dados baseados nas unidades de saúde do Recife
+// Dados expandidos das unidades de saúde do Recife
 const unidadesData: UnidadeSaude[] = [
   // Região Norte
   {
@@ -28,7 +40,11 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-8901',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Pediatria', 'Ginecologia', 'Enfermagem', 'Odontologia'],
-    coordenadas: { lat: -8.0176, lng: -34.8755 }
+    especialidades: ['Clínica Médica', 'Pediatria', 'Ginecologia e Obstetrícia'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.0176, lng: -34.8755 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Hepatite B', 'Tétano']
   },
   {
     id: '2',
@@ -40,19 +56,33 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-5678',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Pediatria', 'Enfermagem', 'Vacinação'],
-    coordenadas: { lat: -8.0389, lng: -34.9067 }
+    especialidades: ['Clínica Médica', 'Pediatria', 'Enfermagem'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.0389, lng: -34.9067 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'BCG', 'Hepatite A e B']
   },
   {
     id: '3',
-    nome: 'UBS Nova Descoberta',
-    tipo: 'UBS',
-    endereco: 'Rua Nova Descoberta, 456',
-    bairro: 'Nova Descoberta',
+    nome: 'UPA Torrões',
+    tipo: 'UPA',
+    endereco: 'Rua dos Torrões, 456',
+    bairro: 'Torrões',
     regiao: 'Norte',
-    telefone: '(81) 3355-2345',
-    horario: '7h às 17h',
-    servicos: ['Clínica Geral', 'Hipertensão', 'Diabetes', 'Enfermagem'],
-    coordenadas: { lat: -8.0234, lng: -34.8923 }
+    telefone: '(81) 3355-9876',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0478, lng: -34.8772 },
+    leitos: {
+      total: 30,
+      disponiveis: 8,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
   },
   // Região Sul
   {
@@ -65,10 +95,37 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-1234',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Cardiologia', 'Enfermagem', 'Odontologia', 'Fisioterapia'],
-    coordenadas: { lat: -8.1131, lng: -34.8901 }
+    especialidades: ['Cardiologia', 'Clínica Médica', 'Fisioterapia', 'Odontologia'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.1131, lng: -34.8901 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Pneumocócica', 'Meningite']
   },
   {
     id: '5',
+    nome: 'Hospital da Restauração',
+    tipo: 'Hospital',
+    endereco: 'Av. Agamenon Magalhães, s/n',
+    bairro: 'Derby',
+    regiao: 'Centro',
+    telefone: '(81) 3184-1234',
+    horario: '24h',
+    servicos: ['Pronto Socorro', 'UTI', 'Cirurgia', 'Internação', 'Laboratório', 'Radiologia'],
+    especialidades: ['Neurologia', 'Neurocirurgia', 'Ortopedia', 'Cardiologia', 'Medicina Intensiva'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0589, lng: -34.8834 },
+    leitos: {
+      total: 250,
+      disponiveis: 45,
+      uti: 40,
+      utiDisponiveis: 8
+    },
+    tratamentosEspeciais: ['Neurologia Avançada', 'Cirurgia Cardíaca', 'Transplantes'],
+    temVacinas: true,
+    tipoVacinas: ['Antirrábica', 'Antitetânica', 'Soro Antiofídico', 'Soro Antiescorpiônico']
+  },
+  {
+    id: '6',
     nome: 'UBS Imbiribeira',
     tipo: 'UBS',
     endereco: 'Rua da Imbiribeira, 789',
@@ -77,19 +134,11 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-3456',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Pediatria', 'Ginecologia', 'Enfermagem'],
-    coordenadas: { lat: -8.1089, lng: -34.8756 }
-  },
-  {
-    id: '6',
-    nome: 'UBS Pina',
-    tipo: 'UBS',
-    endereco: 'Rua do Pina, 234',
-    bairro: 'Pina',
-    regiao: 'Sul',
-    telefone: '(81) 3355-4567',
-    horario: '7h às 17h',
-    servicos: ['Clínica Geral', 'Saúde da Mulher', 'Enfermagem', 'Vacinação'],
-    coordenadas: { lat: -8.0945, lng: -34.8823 }
+    especialidades: ['Clínica Médica', 'Pediatria', 'Ginecologia e Obstetrícia'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.1089, lng: -34.8756 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Hepatite B', 'HPV']
   },
   // Região Oeste
   {
@@ -102,19 +151,34 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-2468',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Pediatria', 'Saúde Mental', 'Enfermagem'],
-    coordenadas: { lat: -8.0434, lng: -34.9456 }
+    especialidades: ['Clínica Médica', 'Pediatria', 'Psicologia', 'Psiquiatria'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.0434, lng: -34.9456 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Tétano', 'Febre Amarela']
   },
   {
     id: '8',
-    nome: 'UBS Jardim São Paulo',
-    tipo: 'UBS',
-    endereco: 'Av. Jardim São Paulo, 890',
-    bairro: 'Jardim São Paulo',
-    regiao: 'Oeste',
-    telefone: '(81) 3355-5789',
-    horario: '7h às 17h',
-    servicos: ['Clínica Geral', 'Hipertensão', 'Diabetes', 'Odontologia'],
-    coordenadas: { lat: -8.0523, lng: -34.9234 }
+    nome: 'Hospital Getúlio Vargas',
+    tipo: 'Hospital',
+    endereco: 'Rua Senador José Henrique, 141',
+    bairro: 'Ilha do Leite',
+    regiao: 'Centro',
+    telefone: '(81) 3421-5000',
+    horario: '24h',
+    servicos: ['Pronto Socorro', 'UTI', 'Maternidade', 'Pediatria', 'Cirurgia'],
+    especialidades: ['Ginecologia', 'Obstetrícia', 'Pediatria', 'Neonatologia', 'Cirurgia Geral'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0723, lng: -34.8945 },
+    leitos: {
+      total: 180,
+      disponiveis: 32,
+      uti: 25,
+      utiDisponiveis: 5
+    },
+    tratamentosEspeciais: ['Maternidade de Alto Risco', 'UTI Neonatal', 'Cirurgia Pediátrica'],
+    temVacinas: true,
+    tipoVacinas: ['BCG', 'Hepatite B', 'Tétano', 'Antirrábica']
   },
   // Região Centro
   {
@@ -127,19 +191,27 @@ const unidadesData: UnidadeSaude[] = [
     telefone: '(81) 3355-6789',
     horario: '7h às 17h',
     servicos: ['Clínica Geral', 'Enfermagem', 'Vacinação', 'Curativo'],
-    coordenadas: { lat: -8.0589, lng: -34.8834 }
+    especialidades: ['Clínica Médica', 'Enfermagem'],
+    diasAtendimento: ['Segunda a Sexta'],
+    coordenadas: { lat: -8.0589, lng: -34.8834 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Tétano', 'Hepatite A']
   },
   {
     id: '10',
-    nome: 'UBS Ilha do Leite',
-    tipo: 'UBS',
+    nome: 'Policlínica Lessa de Andrade',
+    tipo: 'Policlínica',
     endereco: 'Rua da Ilha do Leite, 456',
     bairro: 'Ilha do Leite',
     regiao: 'Centro',
     telefone: '(81) 3355-7890',
-    horario: '7h às 17h',
-    servicos: ['Clínica Geral', 'Pediatria', 'Ginecologia', 'Enfermagem'],
-    coordenadas: { lat: -8.0634, lng: -34.8789 }
+    horario: '7h às 19h',
+    servicos: ['Clínica Geral', 'Especialidades', 'Exames', 'Procedimentos'],
+    especialidades: ['Cardiologia', 'Endocrinologia', 'Dermatologia', 'Oftalmologia', 'Otorrinolaringologia'],
+    diasAtendimento: ['Segunda a Sábado'],
+    coordenadas: { lat: -8.0634, lng: -34.8789 },
+    temVacinas: true,
+    tipoVacinas: ['COVID-19', 'Influenza', 'Pneumocócica', 'Herpes Zóster']
   }
 ];
 
