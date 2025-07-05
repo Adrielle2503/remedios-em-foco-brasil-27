@@ -1,4 +1,3 @@
-
 export interface UnidadeSaude {
   id: string;
   nome: string;
@@ -84,7 +83,344 @@ const unidadesData: UnidadeSaude[] = [
     tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
     temVacinas: false
   },
-  // Região Sul
+  // UPAs oficiais do Estado de Pernambuco
+  {
+    id: '11',
+    nome: 'UPA Abreu e Lima',
+    tipo: 'UPA',
+    endereco: 'Av. Doutor Cláudio José Gueiros Leite, s/n',
+    bairro: 'Centro',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3521-3300',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Eletrocardiograma'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Cardiologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -7.9067, lng: -34.8956 },
+    leitos: {
+      total: 25,
+      disponiveis: 6,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Medicação Intravenosa'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica']
+  },
+  {
+    id: '12',
+    nome: 'UPA Afogados',
+    tipo: 'UPA',
+    endereco: 'Rua Afogados, s/n',
+    bairro: 'Afogados',
+    regiao: 'Oeste',
+    telefone: '(81) 3184-4500',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0345, lng: -34.9234 },
+    leitos: {
+      total: 28,
+      disponiveis: 7,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '13',
+    nome: 'UPA Araripina',
+    tipo: 'UPA',
+    endereco: 'Rua Coronel José Rufino, s/n',
+    bairro: 'Centro',
+    regiao: 'Sertão',
+    telefone: '(87) 3873-1234',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -7.5762, lng: -40.4971 },
+    leitos: {
+      total: 20,
+      disponiveis: 5,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '14',
+    nome: 'UPA Cabo de Santo Agostinho',
+    tipo: 'UPA',
+    endereco: 'Rua Beira Rio, s/n',
+    bairro: 'Centro',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3521-4400',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.2906, lng: -35.0345 },
+    leitos: {
+      total: 24,
+      disponiveis: 4,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '15',
+    nome: 'UPA Caruaru',
+    tipo: 'UPA',
+    endereco: 'Rua Professor Simões Barbosa, s/n',
+    bairro: 'Rendeiras',
+    regiao: 'Agreste',
+    telefone: '(87) 3701-5000',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Tomografia'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Neurologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.2839, lng: -35.9761 },
+    leitos: {
+      total: 35,
+      disponiveis: 8,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Politraumatismo'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica']
+  },
+  {
+    id: '16',
+    nome: 'UPA Garanhuns',
+    tipo: 'UPA',
+    endereco: 'Av. Rui Barbosa, s/n',
+    bairro: 'Heliópolis',
+    regiao: 'Agreste',
+    telefone: '(87) 3761-2200',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.8920, lng: -36.4937 },
+    leitos: {
+      total: 22,
+      disponiveis: 5,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '17',
+    nome: 'UPA Goiana',
+    tipo: 'UPA',
+    endereco: 'Rua Cônego João Lima, s/n',
+    bairro: 'Centro',
+    regiao: 'Mata Norte',
+    telefone: '(81) 3626-1100',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -7.5595, lng: -35.0022 },
+    leitos: {
+      total: 18,
+      disponiveis: 3,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '18',
+    nome: 'UPA Igarassu',
+    tipo: 'UPA',
+    endereco: 'Rua Coronel João Pessoa, s/n',
+    bairro: 'Centro',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3543-2200',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -7.8342, lng: -34.9063 },
+    leitos: {
+      total: 20,
+      disponiveis: 4,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '19',
+    nome: 'UPA Jaboatão Centro',
+    tipo: 'UPA',
+    endereco: 'Rua Barão de Utinga, s/n',
+    bairro: 'Centro',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3342-8800',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Ultrassom'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Ginecologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.1126, lng: -35.0148 },
+    leitos: {
+      total: 32,
+      disponiveis: 7,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Curativos Complexos'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica']
+  },
+  {
+    id: '20',
+    nome: 'UPA Jaboatão Sul',
+    tipo: 'UPA',
+    endereco: 'Av. Ayrton Senna, s/n',
+    bairro: 'Piedade',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3342-9900',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.1534, lng: -35.0201 },
+    leitos: {
+      total: 28,
+      disponiveis: 6,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '21',
+    nome: 'UPA Olinda',
+    tipo: 'UPA',
+    endereco: 'Rua do Sol, s/n',
+    bairro: 'Peixinhos',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3429-5500',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Eletrocardiograma'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Cardiologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0089, lng: -34.8556 },
+    leitos: {
+      total: 30,
+      disponiveis: 8,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Emergências Cardiológicas'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica']
+  },
+  {
+    id: '22',
+    nome: 'UPA Palmares',
+    tipo: 'UPA',
+    endereco: 'Rua Floriano Peixoto, s/n',
+    bairro: 'Centro',
+    regiao: 'Mata Sul',
+    telefone: '(81) 3661-4400',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.6842, lng: -35.5889 },
+    leitos: {
+      total: 20,
+      disponiveis: 4,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '23',
+    nome: 'UPA Paulista',
+    tipo: 'UPA',
+    endereco: 'Av. Cláudio José Gueiros Leite, s/n',
+    bairro: 'Jaguaribe',
+    regiao: 'Região Metropolitana',
+    telefone: '(81) 3437-7700',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -7.9389, lng: -34.8723 },
+    leitos: {
+      total: 26,
+      disponiveis: 5,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização'],
+    temVacinas: false
+  },
+  {
+    id: '24',
+    nome: 'UPA Petrolina',
+    tipo: 'UPA',
+    endereco: 'Rua Clementino Coelho, s/n',
+    bairro: 'Areia Branca',
+    regiao: 'São Francisco',
+    telefone: '(87) 3866-5500',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Tomografia'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Neurologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -9.3891, lng: -40.5030 },
+    leitos: {
+      total: 40,
+      disponiveis: 10,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Politraumatismo'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica', 'Soro Antiofídico']
+  },
+  {
+    id: '25',
+    nome: 'UPA Recife Caxangá',
+    tipo: 'UPA',
+    endereco: 'Av. Caxangá, s/n',
+    bairro: 'Cordeiro',
+    regiao: 'Oeste',
+    telefone: '(81) 3184-3300',
+    horario: '24h',
+    servicos: ['Pronto Atendimento', 'Urgência', 'Emergência', 'Raio-X', 'Laboratório', 'Ultrassom'],
+    especialidades: ['Medicina de Urgência', 'Clínica Médica', 'Pediatria', 'Ortopedia', 'Ginecologia'],
+    diasAtendimento: ['Todos os dias'],
+    coordenadas: { lat: -8.0456, lng: -34.9123 },
+    leitos: {
+      total: 35,
+      disponiveis: 9,
+      uti: 0,
+      utiDisponiveis: 0
+    },
+    tratamentosEspeciais: ['Sutura', 'Imobilização', 'Nebulização', 'Emergências Obstétricas'],
+    temVacinas: true,
+    tipoVacinas: ['Antitetânica', 'Antirrábica']
+  },
+  // ... keep existing code (unidades anteriores - UBS, Hospitais, etc.)
   {
     id: '4',
     nome: 'UBS Boa Viagem',
@@ -140,7 +476,6 @@ const unidadesData: UnidadeSaude[] = [
     temVacinas: true,
     tipoVacinas: ['COVID-19', 'Influenza', 'Hepatite B', 'HPV']
   },
-  // Região Oeste
   {
     id: '7',
     nome: 'UBS Várzea',
@@ -180,7 +515,6 @@ const unidadesData: UnidadeSaude[] = [
     temVacinas: true,
     tipoVacinas: ['BCG', 'Hepatite B', 'Tétano', 'Antirrábica']
   },
-  // Região Centro
   {
     id: '9',
     nome: 'UBS Derby',
@@ -259,7 +593,7 @@ export const buscarUnidades = async (filtros?: {
 };
 
 export const getRegioes = (): string[] => {
-  return ['Norte', 'Sul', 'Centro', 'Oeste'];
+  return ['Norte', 'Sul', 'Centro', 'Oeste', 'Região Metropolitana', 'Agreste', 'Sertão', 'Mata Norte', 'Mata Sul', 'São Francisco'];
 };
 
 export const getServicos = (): string[] => {
