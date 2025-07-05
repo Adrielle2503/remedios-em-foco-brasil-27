@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import { Heart, MessageCircle, Clock, MapPin, Building2 } from 'lucide-react';
 import { PostComunidade } from '@/services/comunidadeService';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import ComentariosPost from './ComentariosPost';
 
 interface FeedComunidadeProps {
   posts: PostComunidade[];
@@ -14,6 +14,16 @@ interface FeedComunidadeProps {
 }
 
 const FeedComunidade = ({ posts, isLoading }: FeedComunidadeProps) => {
+  const [comentariosAbertos, setComentariosAbertos] = useState<string | null>(null);
+
+  const abrirComentarios = (postId: string) => {
+    setComentariosAbertos(postId);
+  };
+
+  const fecharComentarios = () => {
+    setComentariosAbertos(null);
+  };
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -85,92 +95,109 @@ const FeedComunidade = ({ posts, isLoading }: FeedComunidadeProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      {posts.map(post => (
-        <Card key={post.id} className="border-2 border-gray-100 hover:border-primary/30 transition-colors">
-          <CardContent className="p-6">
-            {/* Header do post */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-lg">
-                  {post.usuario.avatar || '👤'}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-semibold text-secondary">
-                      {post.usuario.nome}
-                    </h4>
-                    {post.verificado && (
-                      <Badge variant="secondary" className="text-xs">
-                        ✓ Verificado
-                      </Badge>
-                    )}
+    <>
+      <div className="space-y-4">
+        {posts.map(post => (
+          <Card key={post.id} className="border-2 border-gray-100 hover:border-primary/30 transition-colors">
+            <CardContent className="p-6">
+              {/* Header do post */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-lg">
+                    {post.usuario.avatar || '👤'}
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-3 w-3" />
-                      {post.usuario.cidade === 'recife' ? 'Recife' : 'São Paulo'}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-secondary">
+                        {post.usuario.nome}
+                      </h4>
+                      {post.verificado && (
+                        <Badge variant="secondary" className="text-xs">
+                          ✓ Verificado
+                        </Badge>
+                      )}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {formatDistanceToNow(post.timestamp, { 
-                        addSuffix: true,
-                        locale: ptBR 
-                      })}
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="h-3 w-3" />
+                        {post.usuario.cidade === 'recife' ? 'Recife' : 'São Paulo'}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {formatDistanceToNow(post.timestamp, { 
+                          addSuffix: true,
+                          locale: ptBR 
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Informações da unidade */}
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-3 mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">{getTipoIcon(post.unidadeSaude.tipo)}</span>
-                <div>
-                  <h5 className="font-semibold text-secondary">
-                    {post.unidadeSaude.nome}
-                  </h5>
-                  <p className="text-sm text-gray-600">
-                    {post.unidadeSaude.tipo} • {post.unidadeSaude.bairro}
-                  </p>
+              {/* Informações da unidade */}
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{getTipoIcon(post.unidadeSaude.tipo)}</span>
+                  <div>
+                    <h5 className="font-semibold text-secondary">
+                      {post.unidadeSaude.nome}
+                    </h5>
+                    <p className="text-sm text-gray-600">
+                      {post.unidadeSaude.tipo} • {post.unidadeSaude.bairro}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Conteúdo do post */}
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              {post.conteudo}
-            </p>
+              {/* Conteúdo do post */}
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                {post.conteudo}
+              </p>
 
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map(tag => (
-                <Badge 
-                  key={tag} 
-                  variant="outline"
-                  className={`text-xs ${getTagColor(tag)}`}
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {post.tags.map(tag => (
+                  <Badge 
+                    key={tag} 
+                    variant="outline"
+                    className={`text-xs ${getTagColor(tag)}`}
+                  >
+                    #{tag}
+                  </Badge>
+                ))}
+              </div>
+
+              {/* Ações */}
+              <div className="flex items-center gap-4 pt-2 border-t">
+                <Button variant="ghost" size="sm" className="flex items-center gap-2 text-gray-600 hover:text-red-500">
+                  <Heart className="h-4 w-4" />
+                  {post.likes}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="flex items-center gap-2 text-gray-600 hover:text-blue-500"
+                  onClick={() => abrirComentarios(post.id)}
                 >
-                  #{tag}
-                </Badge>
-              ))}
-            </div>
+                  <MessageCircle className="h-4 w-4" />
+                  {post.comentarios}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-            {/* Ações */}
-            <div className="flex items-center gap-4 pt-2 border-t">
-              <Button variant="ghost" size="sm" className="flex items-center gap-2 text-gray-600 hover:text-red-500">
-                <Heart className="h-4 w-4" />
-                {post.likes}
-              </Button>
-              <Button variant="ghost" size="sm" className="flex items-center gap-2 text-gray-600 hover:text-blue-500">
-                <MessageCircle className="h-4 w-4" />
-                {post.comentarios}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+      {/* Modal de comentários */}
+      {comentariosAbertos && (
+        <ComentariosPost
+          postId={comentariosAbertos}
+          isOpen={!!comentariosAbertos}
+          onClose={fecharComentarios}
+          totalComentarios={posts.find(p => p.id === comentariosAbertos)?.comentarios || 0}
+        />
+      )}
+    </>
   );
 };
 
